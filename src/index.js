@@ -18,6 +18,10 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 const db = getFirestore()
+
+// messaging.getToken({
+// 	vapidKey: "BCBU68xcxNjvAE2As32ZTMa1k4Nf3X6Uw0bU-Tup3PubkPqHHY-kAXtYxNZTYPmVZnjnxWjckYczQJsWwRuSZLg"
+// })
 export const MainCtx = createContext()
 
 ReactDOM.render(
