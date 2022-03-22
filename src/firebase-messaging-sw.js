@@ -1,5 +1,8 @@
-importScripts("https://wwww.gstatic.com/firebasefj/9.6.9/firebase-app.js")
-importScripts("https://wwww.gstatic.com/firebasefj/9.6.9/firebase-messagin.js")
+importScripts("https://www.gstatic.com/firebasejs/9.2.0/firebase-app-compat.js")
+importScripts("https://www.gstatic.com/firebasejs/9.2.0/firebase-messaging-compat.js")
+importScripts("/__/firebase/9.2.0/firebase-app-compat.js")
+importScripts("/__/firebase/9.2.0/firebase-messaging-compat.js")
+importScripts("/__/firebase/init.js")
 // importScripts("/__/firebase/9.2.0/firebase-messaging-compat.js")
 // importScripts("/__/firebase/init.js")
 

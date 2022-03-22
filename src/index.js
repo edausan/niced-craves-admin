@@ -4,7 +4,6 @@ import "./index.css"
 import App from "./App"
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
-import { getMessaging, getToken } from "firebase/messaging"
 import Admin from "./Admin"
 
 const firebaseConfig = {
@@ -19,31 +18,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 const db = getFirestore()
-
-// Initialize Firebase Cloud Messaging and get a reference to the service
-const messaging = getMessaging(app)
-
-// Get registration token. Initially this makes a network call, once retrieved
-// subsequent calls to getToken will return from cache.
-// const messaging = getMessaging()
-getToken(messaging, {
-	vapidKey: "BCBU68xcxNjvAE2As32ZTMa1k4Nf3X6Uw0bU-Tup3PubkPqHHY-kAXtYxNZTYPmVZnjnxWjckYczQJsWwRuSZLg"
-})
-	.then(currentToken => {
-		if (currentToken) {
-			// Send the token to your server and update the UI if necessary
-			// ...
-		} else {
-			// Show permission request UI
-			console.log("No registration token available. Request permission to generate one.")
-			// ...
-		}
-	})
-	.catch(err => {
-		console.log("An error occurred while retrieving token. ", err)
-		// ...
-	})
-
 export const MainCtx = createContext()
 
 ReactDOM.render(
