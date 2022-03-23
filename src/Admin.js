@@ -12,13 +12,9 @@ const Admin = () => {
   const { data } = GetOrders({ db });
 
   useEffect(() => {
-    console.log({ data });
+    // console.log({ data });
     setOrders(data);
   }, [data]);
-
-  useEffect(() => {
-    console.log({ orders });
-  }, [orders]);
 
   const handleStatus = (status) => {
     switch (status) {
