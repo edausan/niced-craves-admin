@@ -1,43 +1,48 @@
-import { useEffect, useState } from "react"
-import "./App.css"
-import { GetToken, onMessageListener, messaging } from "./firebase"
+import { useEffect, useState } from 'react';
+import './App.css';
+import { GetToken, onMessageListener, messaging } from './firebase';
 
-import { getMessaging, onMessage } from "firebase/messaging"
+import { getMessaging, onMessage } from 'firebase/messaging';
 
 function App() {
-	const [tokenFound, setTokenFound] = useState(false)
+  const [isTokenFound, setTokenFound] = useState(false);
+  const [show, setShow] = useState(false);
+  const [notification, setNotification] = useState({ title: '', body: '' });
 
-	useEffect(() => {
-		handleToken()
-	}, [])
+  useEffect(() => {
+    handleGetToken();
+  }, []);
 
-	useEffect(() => {
-		onMessage(messaging, payload => {
-			console.log("Message received. ", payload)
-			// ...
-		})
-	}, [])
+  const handleGetToken = async () => {
+    const token = await GetToken(setTokenFound);
+    console.log({ token });
+  };
 
-	const handleMessageListener = async () => {
-		// const res = await onMessageListener()
-		// console.log({ res })
-	}
+  useEffect(() => {
+    // onMessageListener()
+    //   .then((payload) => {
+    //     setShow(true);
+    //     setNotification({
+    //       title: payload.notification.title,
+    //       body: payload.notification.body,
+    //     });
+    //     console.log(payload);
+    //   })
+    //   .catch((err) => console.log('failed: ', err));
+  }, []);
 
-	const handleToken = async () => {
-		let data
-		try {
-			data = await GetToken(setTokenFound)
-			if (data) {
-				console.log("Token is:", data)
-			}
+  return (
+    <div className='App'>
+      <strong className='mr-auto'>{notification.title}</strong>
+      <p>{notification.body}</p>
 
-			return data
-		} catch (error) {
-			console.log(error)
-		}
-	}
-
-	return <div className="App">Admin</div>
+      <header className='App-header'>
+        {isTokenFound && <h1> Notification permission enabled 👍🏻 </h1>}
+        {!isTokenFound && <h1> Need notification permission ❗️ </h1>}
+        <button onClick={() => setShow(true)}>Show Toast</button>
+      </header>
+    </div>
+  );
 }
 
-export default App
+export default App;
