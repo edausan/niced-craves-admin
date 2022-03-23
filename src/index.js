@@ -1,10 +1,10 @@
-import React, { createContext } from "react"
-import ReactDOM from "react-dom"
-import "./index.css"
-import App from "./App"
-import { initializeApp } from "firebase/app"
-import { getFirestore } from "firebase/firestore"
-import Admin from "./Admin"
+import React, { createContext } from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import Admin from './Admin';
 // import firebase from "./firebase"
 
 // const config = {
@@ -18,15 +18,15 @@ import Admin from "./Admin"
 // }
 
 // const app = initializeApp(config)
-const db = getFirestore()
+const db = getFirestore();
 
-export const MainCtx = createContext()
+export const MainCtx = createContext();
 
 ReactDOM.render(
-	<React.StrictMode>
-		<MainCtx.Provider value={{ db }}>
-			<App />
-		</MainCtx.Provider>
-	</React.StrictMode>,
-	document.getElementById("root")
-)
+  <React.StrictMode>
+    <MainCtx.Provider value={{ db }}>
+      <Admin />
+    </MainCtx.Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);

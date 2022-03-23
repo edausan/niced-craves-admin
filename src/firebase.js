@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getMessaging, onMessage, getToken } from 'firebase/messaging';
 
 export const FIREBASE_MESSAGING_TOKEN =
-  'BEorqg5CrCrkdj7ImijSaKdttf1ZyhqXFQhQDIooBwOoywrjq8a-L1oIhcVqT46cO1uCAMD5UTuD7FHSgql5Y2g';
+  'BCnJW6JX1WCt3qSlwJk_6nJgFIQoqyL3-B-fSLyZ-XRXA-GKsPgZZZKGiiuFDXUPqOIh3q2wzXlFYP3CqO45Lh4';
 
 export const CONFIG = {
   apiKey: 'AIzaSyD5D_95e3pq02ZPhcpYrSKR635tuSsSW3w',

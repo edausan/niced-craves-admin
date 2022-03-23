@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { GetToken, onMessageListener, messaging } from './firebase';
+import { GetToken, onMessageListener } from './firebase';
 
 import { getMessaging, onMessage } from 'firebase/messaging';
 
@@ -8,8 +8,19 @@ function App() {
   const [isTokenFound, setTokenFound] = useState(false);
   const [show, setShow] = useState(false);
   const [notification, setNotification] = useState({ title: '', body: '' });
+  const [token, setToken] = useState(null);
 
-  GetToken(setTokenFound);
+  useEffect(() => {
+    handleToken();
+  }, []);
+
+  const handleToken = async () => {
+    try {
+      const token = await GetToken(setTokenFound);
+      setToken(token);
+      console.log({ token });
+    } catch (error) {}
+  };
 
   onMessageListener()
     .then((payload) => {
@@ -24,13 +35,13 @@ function App() {
 
   return (
     <div className='App'>
-      <strong className='mr-auto'>{notification.title}</strong>
-      <p>{notification.body}</p>
-
+      <p>{token}</p>
       <header className='App-header'>
-        {isTokenFound && <h1> Notification permission enabled 👍🏻 </h1>}
-        {!isTokenFound && <h1> Need notification permission ❗️ </h1>}
-        <button onClick={() => setShow(true)}>Show Toast</button>
+        {isTokenFound ? (
+          <h1> Notification permission enabled 👍🏻 </h1>
+        ) : (
+          <h1> Need notification permission ❗️ </h1>
+        )}
       </header>
     </div>
   );
