@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getMessaging, onMessage, getToken } from 'firebase/messaging';
 
 export const FIREBASE_MESSAGING_TOKEN =
-  'BCBU68xcxNjvAE2As32ZTMa1k4Nf3X6Uw0bU-Tup3PubkPqHHY-kAXtYxNZTYPmVZnjnxWjckYczQJsWwRuSZLg';
+  'BEorqg5CrCrkdj7ImijSaKdttf1ZyhqXFQhQDIooBwOoywrjq8a-L1oIhcVqT46cO1uCAMD5UTuD7FHSgql5Y2g';
 
 export const CONFIG = {
   apiKey: 'AIzaSyD5D_95e3pq02ZPhcpYrSKR635tuSsSW3w',
@@ -26,7 +26,7 @@ export const GetToken = async (setTokenFound) => {
     currentToken = await getToken(messaging, {
       vapidKey: FIREBASE_MESSAGING_TOKEN,
     });
-    // console.log({ currentToken });
+    console.log({ currentToken });
     if (currentToken) {
       setTokenFound(true);
     } else {
@@ -38,21 +38,9 @@ export const GetToken = async (setTokenFound) => {
   }
 };
 
-export const onMessageListener = async () => {
-  onMessage(messaging, (next) => {
-    next.notification.body();
-    console.log({ notif: next.notification });
-    //   return payload;
+export const onMessageListener = () =>
+  new Promise((resolve) => {
+    onMessage(messaging, (payload) => {
+      resolve(payload);
+    });
   });
-  try {
-  } catch (error) {
-    console.log({ onMessageListenerError: error });
-  }
-  //   new Promise((resolve) => {
-  //     onMessage(messaging, (payload) => {
-  //       console.log({ payload });
-  //       resolve(payload);
-  //     });
-};
-
-onMessageListener();
