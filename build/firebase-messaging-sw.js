@@ -37,6 +37,8 @@ db.collection('orders')
       const notificationTitle = `NEW ORDER from ${order.customer.name}`;
       const notificationOptions = {
         body: order.cart[0].name,
+        icon: 'https://firebasestorage.googleapis.com/v0/b/niced-craves-ordering-system.appspot.com/o/small_niced_craves_logo.png?alt=media&token=cb53fd73-d9f2-4aa0-a83d-5bc082725c69',
+        image: order.cart[0].thumb,
       };
       self.registration.showNotification(
         notificationTitle,
@@ -44,23 +46,6 @@ db.collection('orders')
       );
     });
   });
-
-// db.collection('orders')
-//   .get()
-//   .then((querySnapshot) => {
-//     querySnapshot.forEach((doc) => {
-//       console.log(doc.data());
-//       const order = doc.data();
-//       const notificationTitle = `NEW ORDER from ${order.customer.name}`;
-//       const notificationOptions = {
-//         body: order.cart[0].name,
-//       };
-//       self.registration.showNotification(
-//         notificationTitle,
-//         notificationOptions
-//       );
-//     });
-//   });
 
 messaging.onBackgroundMessage((payload) => {
   console.log('Received background message ', payload);
