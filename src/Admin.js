@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { MainCtx } from './index';
 import { GetOrders } from './firestore';
 import { Paper, Grid, Button, Divider } from '@mui/material';
+import { GetToken } from './firebase';
 
 const Admin = () => {
   const { db } = useContext(MainCtx);
@@ -12,6 +13,7 @@ const Admin = () => {
   const { data } = GetOrders({ db });
 
   useEffect(() => {
+    GetToken();
     // console.log({ data });
     setOrders(data);
   }, [data]);

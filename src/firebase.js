@@ -19,7 +19,7 @@ export const app = initializeApp(CONFIG);
 // Initialize Firebase Cloud Messaging and get a reference to the service
 export const messaging = getMessaging(app);
 
-export const GetToken = async (setTokenFound) => {
+export const GetToken = async () => {
   let currentToken = '';
 
   try {
@@ -27,11 +27,11 @@ export const GetToken = async (setTokenFound) => {
       vapidKey: FIREBASE_MESSAGING_TOKEN,
     });
     console.log({ currentToken });
-    if (currentToken) {
-      setTokenFound(true);
-    } else {
-      setTokenFound(false);
-    }
+    // if (currentToken) {
+    //   setTokenFound(true);
+    // } else {
+    //   setTokenFound(false);
+    // }
     return currentToken;
   } catch (error) {
     console.log({ error });

@@ -25,20 +25,6 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>NICED Craves | Admin</title>
-
-    <script>
-      if (navigator.serviceWorker.controller) {
-        console.log('Active service worker found');
-      } else {
-        navigator.serviceWorker
-          .register('firebase-messaging-sw.js', {
-            scope: './',
-          })
-          .then(function (reg) {
-            console.log('Service worker  registered');
-          });
-      }
-    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
