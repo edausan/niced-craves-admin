@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import App from './App';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';

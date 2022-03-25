@@ -1,7 +1,15 @@
-import React, { useState, cloneElement } from 'react';
-import { Box, Tabs, Tab, Typography, Chip } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import {
+  Box,
+  Tabs,
+  Tab,
+  Typography,
+  Chip,
+  SwipeableDrawer,
+} from '@mui/material';
 import Orders from './Orders';
 import { GetOrders } from '../firestore';
+import Swipeable from './Swipeable';
 
 export const handleColor = (status) => {
   console.log({ status });
@@ -22,16 +30,17 @@ export const handleColor = (status) => {
   }
 };
 
+export const STATUS = [
+  'Pending',
+  'Preparing',
+  'For Delivery',
+  'Completed',
+  'Cancelled',
+];
+
 const AdminIndex = () => {
   const { data } = GetOrders();
 
-  const STATUS = [
-    'Pending',
-    'Preparing',
-    'For Delivery',
-    'Completed',
-    'Cancelled',
-  ];
   const [value, setValue] = useState(0);
   function a11yProps(index) {
     return {
@@ -40,22 +49,35 @@ const AdminIndex = () => {
     };
   }
 
+  useEffect(() => {
+    console.log({ value });
+  }, [value]);
+
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <div style={{ background: '#eee', minHeight: '100vh' }}>
+    <div
+      style={{
+        background: '#eee',
+        minHeight: '100vh',
+        maxWidth: 500,
+        margin: '0 auto',
+      }}
+    >
       <Box
         sx={{
           borderBottom: 1,
           borderColor: 'divider',
           position: 'fixed',
           top: 0,
-          left: 0,
+          left: '50%',
           zIndex: 9,
           boxShadow: '0 5px 10px rgba(0,0,0,.2)',
           width: '100%',
+          maxWidth: 500,
+          transform: 'translateX(-50%)',
         }}
       >
         <Tabs
@@ -84,11 +106,18 @@ const AdminIndex = () => {
         </Tabs>
       </Box>
 
-      {STATUS.map((stat, idx) => (
-        <TabPanel key={idx} value={value} index={idx}>
-          <Orders orderStatus={stat} />
-        </TabPanel>
-      ))}
+      <Swipeable index={value} setIndex={setValue}>
+        {STATUS.map((stat, idx) => (
+          <TabPanel
+            key={idx}
+            value={value}
+            index={idx}
+            sx={{ minHeight: '100vh' }}
+          >
+            <Orders orderStatus={stat} />
+          </TabPanel>
+        ))}
+      </Swipeable>
     </div>
   );
 };

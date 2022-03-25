@@ -51,10 +51,9 @@ const Orders = ({ orderStatus }) => {
   };
 
   return (
-    <div style={{ paddingTop: 70 }}>
+    <div style={{ paddingTop: 70, minHeight: '100vh' }}>
       {orders
         .filter((order) => order.status === orderStatus)
-        // .sort((a, b) => b.date_created.localeCompare(a.date_created))
         .map((order) => {
           const { cart, customer, id, status } = order;
           return (
@@ -124,6 +123,7 @@ const Orders = ({ orderStatus }) => {
                 {cart.map((item, idx) => {
                   return (
                     <Grid
+                      key={idx}
                       container
                       sx={{
                         bgcolor: isEven(idx) ? '#ffeada' : '#fff',
@@ -143,7 +143,7 @@ const Orders = ({ orderStatus }) => {
                 })}
               </section>
 
-              {orderStatus !== 'Completed' && (
+              {orderStatus !== 'Completed' && orderStatus !== 'Cancelled' && (
                 <>
                   <Divider sx={{ mt: 1, mb: 2 }} />
                   <Grid container spacing={1}>
