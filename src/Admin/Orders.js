@@ -22,7 +22,7 @@ import {
 	Restaurant,
 	ExpandLess,
 	ExpandMore,
-	AccountBox
+	AccountCircle
 } from "@mui/icons-material"
 import moment from "moment"
 import {handleColor} from "."
@@ -77,7 +77,7 @@ const Orders = ({orderStatus}) => {
 			{orders
 				.filter(order => order.status === orderStatus)
 				.map(order => {
-					const {cart, customer, id, status} = order
+					const {cart, customer, id, status, total} = order
 					console.log({id})
 					return (
 						<Paper key={id} sx={{p: 2, mb: 2}}>
@@ -97,11 +97,11 @@ const Orders = ({orderStatus}) => {
 							{/* <Divider sx={{mt: 1}} /> */}
 
 							<ListItemButton
-								sx={{pl: 1, pr: 1, background: open.status && open.id === id ? grey["200"] : "inherit"}}
+								sx={{pl: 1, pr: 1, background: open.status && open.id === id ? grey["200"] : "inherit", width: "100%"}}
 								onClick={() => setOpen({status: !open.status, id})}
 							>
-								<ListItemIcon>
-									<AccountBox />
+								<ListItemIcon sx={{minWidth: 35}}>
+									<AccountCircle />
 								</ListItemIcon>
 								<ListItemText primary={customer?.name} />
 								{open.status && open.id === id ? <ExpandLess /> : <ExpandMore />}
@@ -169,7 +169,7 @@ const Orders = ({orderStatus}) => {
 											key={idx}
 											container
 											sx={{
-												bgcolor: isEven(idx) ? "#ffeada" : "#fff",
+												bgcolor: isEven(idx) ? "#ffeada" : "#fffcf9",
 												p: 1
 											}}
 										>
@@ -180,7 +180,14 @@ const Orders = ({orderStatus}) => {
 
 												{item.flavor && (
 													<div>
-														<small>{item.flavor}</small>
+														<div>
+															<small>{item.flavor}</small>
+														</div>
+														{item.add_on && (
+															<small>
+																<i>add on: {item.add_on}</i>
+															</small>
+														)}
 													</div>
 												)}
 											</Grid>
@@ -191,17 +198,27 @@ const Orders = ({orderStatus}) => {
 													</div>
 												)}
 											</Grid>
-											<Grid item xs={1}>
+											<Grid item xs={2}>
 												<small>
 													<strong>x {item.quantity}</strong>
 												</small>
 											</Grid>
-											<Grid item xs={2}>
+											<Grid item xs={1}>
 												<small>₱{item.selected_price * item.quantity}</small>
 											</Grid>
 										</Grid>
 									)
 								})}
+
+								<Divider sx={{mt: 2, mb: 1}} />
+								<Grid container>
+									<Grid item xs={10}>
+										<strong>Total</strong>
+									</Grid>
+									<Grid item xs={2}>
+										<strong>₱{total}</strong>
+									</Grid>
+								</Grid>
 							</section>
 
 							{orderStatus !== "Completed" && orderStatus !== "Cancelled" && (
